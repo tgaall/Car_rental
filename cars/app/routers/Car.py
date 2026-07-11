@@ -62,5 +62,5 @@ async def delete_car(car_id: int, session: AsyncSession = Depends(get_async_sess
         update(CarModel).where(CarModel.id == car_id).values(is_active=False)
     )
     await session.commit()
-    await session.refresh(car)  # Для возврата is_active = False
+    await session.refresh(car)  
     return car

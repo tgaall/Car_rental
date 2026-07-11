@@ -5,7 +5,6 @@ from cars.app.config import DATABASE_URL
 class Base(DeclarativeBase):
     pass
 
-# Lazy load engine - don't create on import
 _engine = None
 _AsyncSessionLocal = None
 
@@ -21,7 +20,6 @@ def get_engine():
     return _engine
 
 def get_session_factory():
-    """Lazy load the session factory"""
     global _AsyncSessionLocal
     if _AsyncSessionLocal is None:
         _AsyncSessionLocal = async_sessionmaker(
@@ -32,6 +30,5 @@ def get_session_factory():
     return _AsyncSessionLocal
 
 async def get_db():
-    """FastAPI dependency for database sessions"""
     async with get_session_factory()() as session:
         yield session

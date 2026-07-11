@@ -5,10 +5,9 @@ from cars.app.routers.Car import router as car_router
 
 @asynccontextmanager
 async def lifespan(app: FastAPI):
-    # Startup
+    
     _ = get_engine()
     yield
-    # Shutdown
     engine = get_engine()
     await engine.dispose()
 
