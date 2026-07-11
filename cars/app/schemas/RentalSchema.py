@@ -1,7 +1,7 @@
 from pydantic import BaseModel
 from enum import Enum
 from datetime import datetime
-from app.enums import RentalStatus
+from cars.app.enums import RentalStatus
 
 class Rent(BaseModel):
     id: int

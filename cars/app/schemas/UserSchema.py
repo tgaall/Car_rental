@@ -1,6 +1,6 @@
 from pydantic import BaseModel
 from enum import Enum
-from app.enums import UserRole
+from cars.app.enums import UserRole
 
 class User(BaseModel):
     id: int
