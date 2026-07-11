@@ -1,4 +1,4 @@
-from sqlalchemy import Integer, String, DateTime, Enum, ForeignKey
+from sqlalchemy import Integer, String, DateTime, Enum, ForeignKey, Boolean
 from sqlalchemy.orm import Mapped, mapped_column, relationship
 from datetime import datetime
 from cars.app.database import Base
@@ -22,7 +22,10 @@ class Car(Base):
     daily_rate: Mapped[int] = mapped_column(Integer, nullable=False)                      #→ Integer, Required (price per day)
     created_at: Mapped[datetime] = mapped_column(DateTime, default=datetime.now)          #→ DateTime, Auto-set to now
     updated_at: Mapped[datetime] = mapped_column(DateTime, default=datetime.now, onupdate=datetime.now)
+    is_active: Mapped[bool] = mapped_column(Boolean, default=True)
+
     owner = relationship("User", back_populates="cars")
     rentals = relationship("Rental", back_populates="car")
+    
 
 

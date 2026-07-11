@@ -1,4 +1,4 @@
-from sqlalchemy import Integer, String, DateTime, Enum, ForeignKey
+from sqlalchemy import Integer, String, DateTime, Enum, ForeignKey, Boolean
 from sqlalchemy.orm import Mapped, mapped_column, relationship
 from datetime import datetime
 from cars.app.database import Base
@@ -15,6 +15,7 @@ class User(Base):
     role: Mapped[UserRole] = mapped_column(Enum(UserRole), nullable = False)
     created_at: Mapped[datetime] = mapped_column(DateTime, default=datetime.now)
     updated_at: Mapped[datetime] = mapped_column(DateTime, default=datetime.now, onupdate=datetime.now)
+    is_active: Mapped[bool] = mapped_column(Boolean, default=True)
 
     cars = relationship("Car", back_populates="owner")
     rentals = relationship("Rental", back_populates="renter")
