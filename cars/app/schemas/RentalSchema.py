@@ -3,6 +3,7 @@ from enum import Enum
 from datetime import datetime
 from cars.app.enums import RentalStatus
 
+
 class Rent(BaseModel):
     id: int
     car_id: int

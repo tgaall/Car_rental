@@ -2,14 +2,17 @@ from sqlalchemy.ext.asyncio import create_async_engine, async_sessionmaker, Asyn
 from sqlalchemy.orm import DeclarativeBase
 from cars.app.config import DATABASE_URL
 
+
 class Base(DeclarativeBase):
     pass
+
 
 _engine = None
 _AsyncSessionLocal = None
 
+
 def get_engine():
-    """Lazy load the async engine"""
+
     global _engine
     if _engine is None:
         _engine = create_async_engine(
@@ -18,6 +21,7 @@ def get_engine():
             future=True,
         )
     return _engine
+
 
 def get_session_factory():
     global _AsyncSessionLocal
@@ -28,6 +32,7 @@ def get_session_factory():
             expire_on_commit=False,
         )
     return _AsyncSessionLocal
+
 
 async def get_db():
     async with get_session_factory()() as session:
