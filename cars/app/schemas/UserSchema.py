@@ -1,5 +1,5 @@
 from pydantic import BaseModel
-from enum import Enum
+from enum import Enum  # noqa: F401
 from cars.app.enums import UserRole
 
 
