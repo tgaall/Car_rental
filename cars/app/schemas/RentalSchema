@@ -1,18 +1,13 @@
 from pydantic import BaseModel
 from enum import Enum
-
-class RentalStatus(str, Enum):
-    PENDING = 'pending'
-    ACTIVE = 'active'
-    COMPLETED = 'completed'
-    CANCELLED = 'cancelled'
+from datetime import datetime
+from app.enums import RentalStatus
 
 class Rent(BaseModel):
     id: int
     car_id: int
     renter_id: int
-    start_date: ...
-    end_date: ...
+    start_date: datetime
+    end_date: datetime
     total_price: int
     status: RentalStatus
-    
