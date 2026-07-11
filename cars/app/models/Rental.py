@@ -1,10 +1,10 @@
 from sqlalchemy import Integer, String, DateTime, Enum, ForeignKey
 from sqlalchemy.orm import Mapped, mapped_column, relationship
 from datetime import datetime
-from app.database import Base
-from app.enums import RentalStatus
-from app.models.Car import Car
-from app.models.User import User
+from cars.app.database import Base
+from cars.app.enums import RentalStatus
+from cars.app.models.Car import Car
+from cars.app.models.User import User
 
 class Rental(Base):
     __tablename__ = 'rentals'

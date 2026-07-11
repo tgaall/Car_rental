@@ -1,22 +1,31 @@
+import sys
+import os
+from pathlib import Path
+
+sys.path.insert(0, str(Path(__file__).parent.parent))
+
 from logging.config import fileConfig
-from sqlalchemy import engine_from_config
-from sqlalchemy import pool
-from app.database import Base
+from sqlalchemy import engine_from_config, pool
 from alembic import context
+from dotenv import load_dotenv
 
-# this is the Alembic Config object, which provides
-# access to the values within the .ini file in use.
+# Load environment variables
+load_dotenv()
+
+# Get database URL and convert to sync version
+DATABASE_URL = os.getenv("DATABASE_URL", "postgresql://timurgallamov:454657@localhost:5432/car_rental")
+# Replace asyncpg with plain postgresql for Alembic
+SYNC_DATABASE_URL = DATABASE_URL.replace("postgresql+asyncpg://", "postgresql://")
+
+from cars.app.database import Base
+from cars.app.models import User, Car, Rental
+
 config = context.config
+config.set_main_option("sqlalchemy.url", SYNC_DATABASE_URL)
 
-# Interpret the config file for Python logging.
-# This line sets up loggers basically.
 if config.config_file_name is not None:
     fileConfig(config.config_file_name)
 
-# add your model's MetaData object here
-# for 'autogenerate' support
-# from myapp import mymodel
-# target_metadata = mymodel.Base.metadata
 target_metadata = Base.metadata
 
 # other values from the config, defined by the needs of env.py,
@@ -75,3 +84,13 @@ if context.is_offline_mode():
     run_migrations_offline()
 else:
     run_migrations_online()
+
+from app.config import DATABASE_URL
+
+# For migrations
+SYNC_DATABASE_URL = DATABASE_URL.replace("asyncpg://", "postgresql://")
+
+def run_migrations_online() -> None:
+    configuration = config.get_section(config.config_ini_section)
+    configuration["sqlalchemy.url"] = SYNC_DATABASE_URL
+    

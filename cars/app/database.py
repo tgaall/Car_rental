@@ -1,7 +1,7 @@
 
 from sqlalchemy.ext.asyncio import create_async_engine, async_sessionmaker, AsyncSession
 from sqlalchemy.orm import DeclarativeBase
-from config import DATABASE_URL
+from cars.app.config import DATABASE_URL
 
 
 class Base(DeclarativeBase):

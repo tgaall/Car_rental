@@ -1,8 +1,8 @@
 from sqlalchemy import Integer, String, DateTime, Enum, ForeignKey
 from sqlalchemy.orm import Mapped, mapped_column, relationship
 from datetime import datetime
-from app.database import Base
-from app.enums import UserRole
+from cars.app.database import Base
+from cars.app.enums import UserRole
 
 
 class User(Base):

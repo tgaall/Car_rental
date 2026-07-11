@@ -1,6 +1,6 @@
 
-from app.models.User import User
-from app.models.Car import Car
-from app.models.Rental import Rental
+from cars.app.models.User import User
+from cars.app.models.Car import Car
+from cars.app.models.Rental import Rental
 
 __all__ = ["User", "Car", "Rental"]
