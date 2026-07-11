@@ -48,7 +48,7 @@ async def update_car(
     return car
 
 
-@router.delete("/{car_id}", response_model=CarSchema, status_code=200)
+@router.delete("/{car_id}", status_code=200)
 async def delete_car(car_id: int, session: AsyncSession = Depends(get_async_session)):
     car = await session.scalar(select(CarModel).where(CarModel.id == car_id))
     if not car:
@@ -58,4 +58,4 @@ async def delete_car(car_id: int, session: AsyncSession = Depends(get_async_sess
     )
     await session.commit()
     await session.refresh(car)
-    return car
+    return {"message": "success"}
