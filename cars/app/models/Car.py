@@ -21,7 +21,9 @@ class Car(Base):
     mileage: Mapped[int] = mapped_column(Integer, default=0)
     engine_type: Mapped[EngineType] = mapped_column(Enum(EngineType), nullable=False)
     fuel_type: Mapped[FuelType] = mapped_column(Enum(FuelType), nullable=False)
-    status: Mapped[CarStatus] = mapped_column(Enum(CarStatus), nullable=False)
+    status: Mapped[CarStatus] = mapped_column(
+        Enum(CarStatus), default=CarStatus.AVAILABLE
+    )
     daily_rate: Mapped[int] = mapped_column(Integer, nullable=False)
     created_at: Mapped[datetime] = mapped_column(DateTime, default=datetime.now)
     updated_at: Mapped[datetime] = mapped_column(
