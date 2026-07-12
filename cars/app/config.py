@@ -8,3 +8,4 @@ DATABASE_URL = os.getenv(
     "postgresql+asyncpg://timurgallamov:454657@localhost:5432/car_rental",
 )
 SECRET_KEY = os.getenv("SECRET_KEY", "454657")
+ALGORITHM = "HS256"

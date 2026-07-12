@@ -4,6 +4,8 @@ from cars.app.models.Car import Car as CarModel
 from cars.app.schemas.CarSchema import Car as CarSchema, CarCreate
 from sqlalchemy.ext.asyncio import AsyncSession
 from cars.app.dependencies import get_async_session
+from cars.app.auth import require_roles
+from cars.app.models.User import User as UserModel
 
 
 router = APIRouter(prefix="/cars", tags=["Cars"])
@@ -26,8 +28,12 @@ async def get_car(car_id: int, session: AsyncSession = Depends(get_async_session
 
 
 @router.post("/", response_model=CarSchema, status_code=201)
-async def post_car(car: CarCreate, session: AsyncSession = Depends(get_async_session)):
-    session_car = CarModel(**car.model_dump())
+async def post_car(
+    car: CarCreate,
+    session: AsyncSession = Depends(get_async_session),
+    current_user: UserModel = Depends(require_roles("Seller", "Admin")),
+):
+    session_car = CarModel(**car.model_dump(), owner_id=current_user.id)
     session.add(session_car)
     await session.commit()
     return session_car
@@ -35,11 +41,19 @@ async def post_car(car: CarCreate, session: AsyncSession = Depends(get_async_ses
 
 @router.put("/{car_id}", response_model=CarSchema, status_code=200)
 async def update_car(
-    car_id: int, car_data: CarCreate, session: AsyncSession = Depends(get_async_session)
+    car_id: int,
+    car_data: CarCreate,
+    session: AsyncSession = Depends(get_async_session),
+    current_user: UserModel = Depends(require_roles("Seller", "Admin")),
 ):
     car = await session.scalar(select(CarModel).where(CarModel.id == car_id))
     if not car:
         raise HTTPException(status_code=status.HTTP_404_NOT_FOUND, detail="Not found")
+    if current_user.role != "Admin" and car.owner_id != current_user.id:
+        raise HTTPException(
+            status_code=status.HTTP_403_FORBIDDEN,
+            detail="You can only change your own car",
+        )
     await session.execute(
         update(CarModel).where(CarModel.id == car_id).values(**car_data.model_dump())
     )
@@ -49,10 +63,19 @@ async def update_car(
 
 
 @router.delete("/{car_id}", status_code=200)
-async def delete_car(car_id: int, session: AsyncSession = Depends(get_async_session)):
+async def delete_car(
+    car_id: int,
+    session: AsyncSession = Depends(get_async_session),
+    current_user: UserModel = Depends(require_roles("Seller", "Admin")),
+):
     car = await session.scalar(select(CarModel).where(CarModel.id == car_id))
     if not car:
         raise HTTPException(status_code=status.HTTP_404_NOT_FOUND, detail="Not found")
+    if current_user.role != "Admin" and car.owner_id != current_user.id:
+        raise HTTPException(
+            status_code=status.HTTP_403_FORBIDDEN,
+            detail="You can only change your own car",
+        )
     await session.execute(
         update(CarModel).where(CarModel.id == car_id).values(is_active=False)
     )

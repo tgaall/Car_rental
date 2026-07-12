@@ -2,9 +2,9 @@ from enum import Enum
 
 
 class UserRole(str, Enum):
-    ADMIN = "admin"
-    SELLER = "seller"
-    RENTER = "renter"
+    ADMIN = "Admin"
+    SELLER = "Seller"
+    RENTER = "Renter"
 
 
 class EngineType(str, Enum):
