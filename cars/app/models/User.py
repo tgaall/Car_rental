@@ -1,4 +1,4 @@
-from sqlalchemy import Integer, String, DateTime, Enum, ForeignKey, Boolean
+from sqlalchemy import Integer, String, DateTime, Enum, Boolean
 from sqlalchemy.orm import Mapped, mapped_column, relationship
 from datetime import datetime
 from cars.app.database import Base
