@@ -3,8 +3,8 @@ from cars.app.enums import EngineType, FuelType
 
 
 class CarCreate(BaseModel):
-    brand: str = Field(examples=["Tesla"])
-    model: str = Field(examples=["Model 3"])
+    brand: str
+    model: str
     year: int = Field(description="year produced")
     color: str
     vin: str

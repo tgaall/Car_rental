@@ -16,19 +16,16 @@ class Car(Base):
     brand: Mapped[str] = mapped_column(String, nullable=False)
     model: Mapped[str] = mapped_column(String, nullable=False)
     year: Mapped[int] = mapped_column(Integer, nullable=False)
-    color: Mapped[str] = mapped_column(String, nullable=True)
+    color: Mapped[str] = mapped_column(String, nullable=False)
     vin: Mapped[str] = mapped_column(String, unique=True)
     mileage: Mapped[int] = mapped_column(Integer, default=0)
-    engine_type: Mapped[EngineType] = mapped_column(Enum(EngineType), nullable=False)
-    fuel_type: Mapped[FuelType] = mapped_column(Enum(FuelType), nullable=False)
+    engine_type: Mapped[EngineType] = mapped_column(Enum(EngineType), nullable=True)
+    fuel_type: Mapped[FuelType] = mapped_column(Enum(FuelType), nullable=True)
     status: Mapped[CarStatus] = mapped_column(
         Enum(CarStatus), default=CarStatus.AVAILABLE
     )
     daily_rate: Mapped[int] = mapped_column(Integer, nullable=False)
     created_at: Mapped[datetime] = mapped_column(DateTime, default=datetime.now)
-    updated_at: Mapped[datetime] = mapped_column(
-        DateTime, default=datetime.now, onupdate=datetime.now
-    )
     is_active: Mapped[bool] = mapped_column(Boolean, default=True)
 
     owner = relationship("User", back_populates="cars")
