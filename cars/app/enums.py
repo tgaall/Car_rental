@@ -8,27 +8,27 @@ class UserRole(str, Enum):
 
 
 class EngineType(str, Enum):
-    PETROL = "petrol"
-    DIESEL = "diesel"
-    HYBRID = "hybrid"
-    ELECTRIC = "electric"
+    PETROL = "Petrol"
+    DIESEL = "Diesel"
+    HYBRID = "Hybrid"
+    ELECTRIC = "Electric"
 
 
 class FuelType(str, Enum):
-    UNLEADED = "unleaded"
-    PREMIUM = "premium"
-    DIESEL = "diesel"
+    UNLEADED = "Unleaded"
+    PREMIUM = "Premium"
+    DIESEL = "Diesel"
 
 
 class CarStatus(str, Enum):
-    AVAILABLE = "available"
-    RENTED = "rented"
-    MAINTENANCE = "maintenance"
-    UNAVAILABLE = "unavailable"
+    AVAILABLE = "Available"
+    RENTED = "Rented"
+    MAINTENANCE = "Maintenance"
+    UNAVAILABLE = "Unavailable"
 
 
 class RentalStatus(str, Enum):
-    PENDING = "pending"
-    ACTIVE = "active"
-    COMPLETED = "completed"
-    CANCELLED = "cancelled"
+    PENDING = "Pending"
+    ACTIVE = "Active"
+    COMPLETED = "Completed"
+    CANCELLED = "Cancelled"

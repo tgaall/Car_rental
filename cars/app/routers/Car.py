@@ -46,7 +46,9 @@ async def update_car(
     session: AsyncSession = Depends(get_async_session),
     current_user: UserModel = Depends(require_roles("Seller", "Admin")),
 ):
-    car = await session.scalar(select(CarModel).where(CarModel.id == car_id))
+    car = await session.scalar(
+        select(CarModel).where(CarModel.id == car_id, CarModel.is_active)
+    )
     if not car:
         raise HTTPException(status_code=status.HTTP_404_NOT_FOUND, detail="Not found")
     if current_user.role != "Admin" and car.owner_id != current_user.id:
@@ -68,7 +70,9 @@ async def delete_car(
     session: AsyncSession = Depends(get_async_session),
     current_user: UserModel = Depends(require_roles("Seller", "Admin")),
 ):
-    car = await session.scalar(select(CarModel).where(CarModel.id == car_id))
+    car = await session.scalar(
+        select(CarModel).where(CarModel.id == car_id, CarModel.is_active)
+    )
     if not car:
         raise HTTPException(status_code=status.HTTP_404_NOT_FOUND, detail="Not found")
     if current_user.role != "Admin" and car.owner_id != current_user.id:

@@ -2,7 +2,7 @@ from fastapi import APIRouter, HTTPException, status, Depends
 from fastapi.security import OAuth2PasswordRequestForm
 from sqlalchemy.ext.asyncio import AsyncSession
 from cars.app.models.User import User as UserModel
-from cars.app.schemas.UserSchema import User, UserCreate
+from cars.app.schemas.UserSchema import User, UserCreate, UserUpdate
 from sqlalchemy import select, update
 from cars.app.dependencies import get_async_session
 from cars.app.auth import (
@@ -37,7 +37,11 @@ async def create_user(
             status_code=status.HTTP_400_BAD_REQUEST, detail="Email already registered"
         )
     db_user = UserModel(
-        email=user.email, hashed_password=hash_password(user.password), role=user.role
+        name=user.name,
+        phone=user.phone,
+        email=user.email,
+        hashed_password=hash_password(user.password),
+        role=user.role,
     )
     session.add(db_user)
     await session.commit()
@@ -47,7 +51,7 @@ async def create_user(
 @router.put("/{user_id}", response_model=User, status_code=200)
 async def update_user(
     user_id: int,
-    user_data: UserCreate,
+    user_data: UserUpdate,
     session: AsyncSession = Depends(get_async_session),
     current_user: UserModel = Depends(require_roles("Admin", "Seller", "Renter")),
 ):
@@ -56,7 +60,7 @@ async def update_user(
     )
     if not user:
         raise HTTPException(status_code=status.HTTP_404_NOT_FOUND)
-    if current_user.id != user.id:
+    if current_user.id != user.id and current_user.role != "Admin":
         raise HTTPException(status_code=status.HTTP_403_FORBIDDEN)
     await session.execute(
         update(UserModel)
@@ -79,8 +83,6 @@ async def delete_user(
     )
     if not user:
         raise HTTPException(status_code=status.HTTP_404_NOT_FOUND)
-    if current_user.role != "Admin" and current_user.id != user_id:
-        raise HTTPException(status_code=status.HTTP_403_FORBIDDEN)
     await session.execute(
         update(UserModel).where(UserModel.id == user_id).values(is_active=False)
     )
@@ -133,7 +135,7 @@ async def refresh_token(
         email: str = payload.get("sub")
         if email is None:
             raise credentials_exception
-    except jwt.exceptions:
+    except jwt.InvalidTokenError:
         raise credentials_exception
     result = await db.scalars(
         select(UserModel).where(UserModel.email == email, UserModel.is_active)

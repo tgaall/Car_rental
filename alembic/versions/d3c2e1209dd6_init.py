@@ -1,8 +1,8 @@
 """init
 
-Revision ID: 2af4538f88aa
+Revision ID: d3c2e1209dd6
 Revises: 
-Create Date: 2026-07-11 16:04:51.501585
+Create Date: 2026-07-13 11:40:34.053670
 
 """
 from typing import Sequence, Union
@@ -12,7 +12,7 @@ import sqlalchemy as sa
 
 
 # revision identifiers, used by Alembic.
-revision: str = '2af4538f88aa'
+revision: str = 'd3c2e1209dd6'
 down_revision: Union[str, Sequence[str], None] = None
 branch_labels: Union[str, Sequence[str], None] = None
 depends_on: Union[str, Sequence[str], None] = None
@@ -25,10 +25,12 @@ def upgrade() -> None:
     sa.Column('id', sa.Integer(), nullable=False),
     sa.Column('name', sa.String(), nullable=False),
     sa.Column('email', sa.String(), nullable=False),
+    sa.Column('hashed_password', sa.String(), nullable=False),
     sa.Column('phone', sa.String(), nullable=True),
     sa.Column('role', sa.Enum('ADMIN', 'SELLER', 'RENTER', name='userrole'), nullable=False),
     sa.Column('created_at', sa.DateTime(), nullable=False),
     sa.Column('updated_at', sa.DateTime(), nullable=False),
+    sa.Column('is_active', sa.Boolean(), nullable=False),
     sa.PrimaryKeyConstraint('id'),
     sa.UniqueConstraint('email')
     )
@@ -39,15 +41,15 @@ def upgrade() -> None:
     sa.Column('brand', sa.String(), nullable=False),
     sa.Column('model', sa.String(), nullable=False),
     sa.Column('year', sa.Integer(), nullable=False),
-    sa.Column('color', sa.String(), nullable=True),
+    sa.Column('color', sa.String(), nullable=False),
     sa.Column('vin', sa.String(), nullable=False),
     sa.Column('mileage', sa.Integer(), nullable=False),
-    sa.Column('engine_type', sa.Enum('PETROL', 'DIESEL', 'HYBRID', 'ELECTRIC', name='enginetype'), nullable=False),
-    sa.Column('fuel_type', sa.Enum('UNLEADED', 'PREMIUM', 'DIESEL', name='fueltype'), nullable=False),
+    sa.Column('engine_type', sa.Enum('PETROL', 'DIESEL', 'HYBRID', 'ELECTRIC', name='enginetype'), nullable=True),
+    sa.Column('fuel_type', sa.Enum('UNLEADED', 'PREMIUM', 'DIESEL', name='fueltype'), nullable=True),
     sa.Column('status', sa.Enum('AVAILABLE', 'RENTED', 'MAINTENANCE', 'UNAVAILABLE', name='carstatus'), nullable=False),
     sa.Column('daily_rate', sa.Integer(), nullable=False),
     sa.Column('created_at', sa.DateTime(), nullable=False),
-    sa.Column('updated_at', sa.DateTime(), nullable=False),
+    sa.Column('is_active', sa.Boolean(), nullable=False),
     sa.ForeignKeyConstraint(['owner_id'], ['users.id'], ),
     sa.PrimaryKeyConstraint('id'),
     sa.UniqueConstraint('plate'),

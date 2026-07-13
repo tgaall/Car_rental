@@ -5,17 +5,16 @@ from cars.app.enums import EngineType, FuelType
 class CarCreate(BaseModel):
     brand: str
     model: str
-    year: int = Field(description="year produced")
+    year: int = Field(gt=1900, description="year produced")
     color: str
     vin: str
-    mileage: int
+    mileage: int = Field(gt=0)
     engine_type: EngineType
     fuel_type: FuelType
     plate: str
-    daily_rate: int
+    daily_rate: int = Field(gt=0)
 
 
 class Car(CarCreate):
     id: int
     owner_id: int
-    plate: str
