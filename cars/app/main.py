@@ -3,6 +3,7 @@ from contextlib import asynccontextmanager
 from cars.app.database import get_engine
 from cars.app.routers.Car import router as car_router
 from cars.app.routers.Users import router as user_router
+from cars.app.log import log_middleware
 
 
 @asynccontextmanager
@@ -19,6 +20,8 @@ app = FastAPI(
     version="0.1.0",
     lifespan=lifespan,
 )
+
+app.middleware("http")(log_middleware)
 
 app.include_router(car_router)
 app.include_router(user_router)
