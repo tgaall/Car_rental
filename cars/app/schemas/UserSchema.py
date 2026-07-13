@@ -18,3 +18,9 @@ class UserCreate(BaseModel):
     role: str = Field(
         default="Renter", pattern="^(Renter|Seller|Admin)$", description="Role"
     )
+
+
+class UserUpdate(BaseModel):
+    name: str
+    email: str
+    phone: str
