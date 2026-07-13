@@ -6,14 +6,20 @@ from sqlalchemy.ext.asyncio import AsyncSession
 from cars.app.dependencies import get_async_session
 from cars.app.auth import require_roles
 from cars.app.models.User import User as UserModel
-
+from fastapi_filter import FilterDepends
+from cars.app.schemas.filters import CarFilter
 
 router = APIRouter(prefix="/cars", tags=["Cars"])
 
 
 @router.get("/", response_model=list[CarSchema], status_code=200)
-async def get_all_cars(session: AsyncSession = Depends(get_async_session)):
-    cars = await session.scalars(select(CarModel).where(CarModel.is_active))
+async def get_all_cars(
+    car_filter: CarFilter = FilterDepends(CarFilter),
+    session: AsyncSession = Depends(get_async_session),
+):
+    query = select(CarModel).where(CarModel.is_active)
+    query = car_filter.filter(query)
+    cars = await session.scalars(query)
     return cars.all()
 
 
