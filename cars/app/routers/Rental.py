@@ -1,6 +1,7 @@
 from fastapi import APIRouter, HTTPException, status, Depends
 from sqlalchemy.ext.asyncio import AsyncSession
 from sqlalchemy import select, update
+from sqlalchemy.orm import selectinload
 from cars.app.enums import CarStatus
 from cars.app.models.Rental import Rental as RentalModel
 from cars.app.schemas.RentalSchema import (
@@ -55,22 +56,34 @@ async def rent_car(
         total_price=total_price,
         status=RentalStatus.ACTIVE,
     )
+    car.status = CarStatus.RENTED
     session.add(new_rental)
     await session.commit()
     await session.refresh(new_rental)
+    await session.refresh(car)
 
     return new_rental
 
 
 @router.get("/", response_model=list[RentalSchema], status_code=200)
-async def get_your_rents(
+async def get_rentals(
     current_user: UserModel = Depends(get_current_user),
     session: AsyncSession = Depends(get_async_session),
 ):
-    rents = await session.scalars(
-        select(RentalModel).where(RentalModel.renter_id == current_user.id)
-    )
-    return rents.all()
+    if current_user.role == "Admin":
+        rentals = await session.scalars(select(RentalModel))
+    elif current_user.role == "Seller":
+        query = (
+            select(RentalModel)
+            .join(CarModel, RentalModel.car_id == CarModel.id)
+            .where(CarModel.owner_id == current_user.id)
+        )
+        rentals = await session.scalars(query)
+    elif current_user.role == "Renter":
+        rentals = await session.scalars(
+            select(RentalModel).where(RentalModel.renter_id == current_user.id)
+        )
+    return rentals.all()
 
 
 @router.get("/{rental_id}", response_model=RentalSchema, status_code=200)
@@ -79,7 +92,11 @@ async def get_rent(
     current_user: UserModel = Depends(get_current_user),
     session: AsyncSession = Depends(get_async_session),
 ):
-    rent = await session.scalar(select(RentalModel).where(RentalModel.id == rental_id))
+    rent = await session.scalar(
+        select(RentalModel)
+        .where(RentalModel.id == rental_id)
+        .options(selectinload(RentalModel.car))
+    )
     if not rent:
         raise HTTPException(
             status_code=status.HTTP_404_NOT_FOUND, detail="Rent not found"
@@ -108,7 +125,9 @@ async def change_rent(
     session: AsyncSession = Depends(get_async_session),
 ):
     rental = await session.scalar(
-        select(RentalModel).where(RentalModel.id == rental_id)
+        select(RentalModel)
+        .where(RentalModel.id == rental_id)
+        .options(selectinload(RentalModel.car))
     )
     if not rental:
         raise HTTPException(status_code=status.HTTP_404_NOT_FOUND)
@@ -124,15 +143,15 @@ async def change_rent(
             raise HTTPException(
                 status_code=status.HTTP_403_FORBIDDEN, detail="Access denied"
             )
-    car = await session.scalar(select(CarModel).where(CarModel.id == rental.car_id))
+
     if rental.status != RentalStatus.ACTIVE:
         raise HTTPException(
             status_code=400, detail="Only active rentals can be completed"
         )
 
     rental.status = RentalStatus.COMPLETED
-    car.status = CarStatus.AVAILABLE
+    rental.car.status = CarStatus.AVAILABLE
     await session.commit()
     await session.refresh(rental)
-    await session.refresh(car)
+    await session.refresh(rental.car)
     return rental
