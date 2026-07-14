@@ -1,1 +1,46 @@
 Log: [22e70722-718a-4843-ba34-b918fbaa51fd:2026-07-13T18:11:08.747659+0500 - INFO - Successfully accessed /cars/ 
+Log: [ae463626-0f97-48d0-9912-5b2554bad8e7:2026-07-14T12:42:07.396051+0500 - INFO - Successfully accessed / 
+Log: [2555e43c-ef1e-415c-a00f-7cab7dd0d65f:2026-07-14T12:42:07.717456+0500 - WARNING - Request to /apple-touch-icon-precomposed.png failed 
+Log: [f53358ca-7da0-48a9-9f34-c8600b4ec0e8:2026-07-14T12:42:07.719246+0500 - WARNING - Request to /apple-touch-icon.png failed 
+Log: [9cdfbb9c-be4c-44cd-aec0-b5e90baf7e1e:2026-07-14T12:42:07.719787+0500 - WARNING - Request to /favicon.ico failed 
+Log: [a5ebf6be-169e-40bd-b383-e8a2b6d66128:2026-07-14T12:42:08.536251+0500 - INFO - Successfully accessed / 
+Log: [2f05c4e4-2479-4ecb-af0a-8fc8cbd8200c:2026-07-14T12:42:09.829003+0500 - INFO - Successfully accessed /docs 
+Log: [74684b02-949d-4561-8b85-1566aaa51ac1:2026-07-14T12:42:10.058221+0500 - INFO - Successfully accessed /docs 
+Log: [8a343ef1-098b-4e13-81eb-f8b458d4a6f5:2026-07-14T12:42:10.426011+0500 - INFO - Successfully accessed /openapi.json 
+Log: [4b5fa16a-8b86-4edf-9f0c-4d0339c00f17:2026-07-14T12:42:58.808373+0500 - INFO - Successfully accessed /users/ 
+Log: [f5a6e66a-8ff0-41e1-b24e-7a71976bd072:2026-07-14T12:43:12.940745+0500 - INFO - Successfully accessed /users/ 
+Log: [3b470d6a-97b5-4c6e-889d-ae402ef7b3ca:2026-07-14T12:43:22.278019+0500 - INFO - Successfully accessed /users/ 
+Log: [471353c0-d766-495e-b508-61366ef8d669:2026-07-14T12:43:47.644491+0500 - INFO - Successfully accessed /users/token 
+Log: [154881c2-fcc5-4e43-9b55-1745cc09f1e7:2026-07-14T12:44:45.485325+0500 - WARNING - Request to /cars/ failed 
+Log: [71284fe4-23a1-48a2-9d2f-5082e7946f59:2026-07-14T12:46:31.187218+0500 - INFO - Successfully accessed /users/token 
+Log: [c5ad6505-7899-4d9e-abd4-ddf1b4cc2376:2026-07-14T12:46:45.391881+0500 - INFO - Successfully accessed /users/token 
+Log: [a0c03987-8607-4c9a-80a2-c4fd1d674e89:2026-07-14T12:46:49.764641+0500 - WARNING - Request to /cars/ failed 
+Log: [7d999a4f-7c43-4750-80a4-f0633d12564c:2026-07-14T12:47:40.412832+0500 - INFO - Successfully accessed /users/token 
+Log: [e1d0c041-b1c3-46c6-acd5-a2cb02ac9e62:2026-07-14T12:47:43.984104+0500 - INFO - Successfully accessed /cars/ 
+Log: [76ef5ff6-0dd6-4a69-8e52-1654c91f8edb:2026-07-14T12:48:07.917761+0500 - INFO - Successfully accessed /users/token 
+Log: [ceb13075-2a0d-4660-9957-ec69e5920340:2026-07-14T12:48:16.787263+0500 - INFO - Successfully accessed /users/ 
+Log: [6a2b0431-45fa-41ad-8a18-edf8f0049cb6:2026-07-14T12:48:32.426590+0500 - INFO - Successfully accessed /cars/ 
+Log: [9215b256-81cd-4262-89a5-ac9e7dc6e2ef:2026-07-14T12:48:49.695657+0500 - INFO - Successfully accessed /rentals/ 
+Log: [7bdf6e01-a9a0-45b1-9593-2d41f6d992e6:2026-07-14T12:49:21.717912+0500 - ERROR - Request to /rentals/ failed: (sqlalchemy.dialects.postgresql.asyncpg.Error) <class 'asyncpg.exceptions.DataError'>: invalid input for query argument $3: datetime.datetime(2026, 7, 14, 7, 48, 57... (can't subtract offset-naive and offset-aware datetimes)
+[SQL: INSERT INTO rentals (car_id, renter_id, start_date, end_date, total_price, status) VALUES ($1::INTEGER, $2::INTEGER, $3::TIMESTAMP WITHOUT TIME ZONE, $4::TIMESTAMP WITHOUT TIME ZONE, $5::INTEGER, $6::rentalstatus) RETURNING rentals.id]
+[parameters: (1, 2, datetime.datetime(2026, 7, 14, 7, 48, 57, 806000, tzinfo=TzInfo(0)), datetime.datetime(2026, 7, 20, 7, 48, 57, 806000, tzinfo=TzInfo(0)), 6000, 'ACTIVE')]
+(Background on this error at: https://sqlalche.me/e/20/dbapi) 
+Log: [53d07ca1-b163-4190-9d1e-a528d3b4fcac:2026-07-14T12:52:57.444131+0500 - WARNING - Request to /rentals/ failed 
+Log: [80e0453b-1c5e-434f-9eeb-a9b9c393180c:2026-07-14T12:53:03.083199+0500 - ERROR - Request to /rentals/ failed: (sqlalchemy.dialects.postgresql.asyncpg.Error) <class 'asyncpg.exceptions.DataError'>: invalid input for query argument $3: datetime.datetime(2026, 7, 14, 7, 52, 48... (can't subtract offset-naive and offset-aware datetimes)
+[SQL: INSERT INTO rentals (car_id, renter_id, start_date, end_date, total_price, status) VALUES ($1::INTEGER, $2::INTEGER, $3::TIMESTAMP WITHOUT TIME ZONE, $4::TIMESTAMP WITHOUT TIME ZONE, $5::INTEGER, $6::rentalstatus) RETURNING rentals.id]
+[parameters: (1, 2, datetime.datetime(2026, 7, 14, 7, 52, 48, 489000, tzinfo=TzInfo(0)), datetime.datetime(2026, 7, 15, 7, 52, 48, 489000, tzinfo=TzInfo(0)), 1000, 'ACTIVE')]
+(Background on this error at: https://sqlalche.me/e/20/dbapi) 
+Log: [02deadbe-2651-4a17-b340-cd963754d39f:2026-07-14T12:54:40.584208+0500 - ERROR - Request to /rentals/ failed: (sqlalchemy.dialects.postgresql.asyncpg.Error) <class 'asyncpg.exceptions.DataError'>: invalid input for query argument $3: datetime.datetime(2026, 7, 14, 7, 54, 25... (can't subtract offset-naive and offset-aware datetimes)
+[SQL: INSERT INTO rentals (car_id, renter_id, start_date, end_date, total_price, status) VALUES ($1::INTEGER, $2::INTEGER, $3::TIMESTAMP WITHOUT TIME ZONE, $4::TIMESTAMP WITHOUT TIME ZONE, $5::INTEGER, $6::rentalstatus) RETURNING rentals.id]
+[parameters: (1, 2, datetime.datetime(2026, 7, 14, 7, 54, 25, 387000, tzinfo=TzInfo(0)), datetime.datetime(2026, 8, 14, 7, 54, 25, 387000, tzinfo=TzInfo(0)), 31000, 'ACTIVE')]
+(Background on this error at: https://sqlalche.me/e/20/dbapi) 
+Log: [79d1afe6-f7ed-42ac-93e2-a074e732e7c5:2026-07-14T12:54:40.816191+0500 - ERROR - Request to /rentals/ failed: (sqlalchemy.dialects.postgresql.asyncpg.Error) <class 'asyncpg.exceptions.DataError'>: invalid input for query argument $3: datetime.datetime(2026, 7, 14, 7, 54, 25... (can't subtract offset-naive and offset-aware datetimes)
+[SQL: INSERT INTO rentals (car_id, renter_id, start_date, end_date, total_price, status) VALUES ($1::INTEGER, $2::INTEGER, $3::TIMESTAMP WITHOUT TIME ZONE, $4::TIMESTAMP WITHOUT TIME ZONE, $5::INTEGER, $6::rentalstatus) RETURNING rentals.id]
+[parameters: (1, 2, datetime.datetime(2026, 7, 14, 7, 54, 25, 387000, tzinfo=TzInfo(0)), datetime.datetime(2026, 8, 14, 7, 54, 25, 387000, tzinfo=TzInfo(0)), 31000, 'ACTIVE')]
+(Background on this error at: https://sqlalche.me/e/20/dbapi) 
+Log: [b7e0efc8-42a0-46b8-9c55-2c203fafd10c:2026-07-14T12:56:43.770349+0500 - INFO - Successfully accessed /docs 
+Log: [cbf60657-29df-44c5-82b7-9be8b4132960:2026-07-14T12:56:44.125968+0500 - INFO - Successfully accessed /openapi.json 
+Log: [e8e204e1-17bf-44fe-843d-246a4ee8b934:2026-07-14T12:57:03.224802+0500 - INFO - Successfully accessed /users/token 
+Log: [20c217dc-0cdc-4666-b47b-5c7d120e2564:2026-07-14T12:57:24.903983+0500 - WARNING - Request to /rentals/ failed 
+Log: [c76219ab-d50b-4b12-bce1-dec986be1001:2026-07-14T12:57:51.408643+0500 - INFO - Successfully accessed /users/token 
+Log: [ff929f1a-3b8e-400c-b094-594386b53e52:2026-07-14T12:57:55.864498+0500 - INFO - Successfully accessed /rentals/ 
