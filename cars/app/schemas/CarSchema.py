@@ -1,5 +1,6 @@
 from pydantic import BaseModel, Field
 from cars.app.enums import EngineType, FuelType
+from cars.app.enums import CarStatus
 
 
 class CarCreate(BaseModel):
@@ -18,3 +19,4 @@ class CarCreate(BaseModel):
 class Car(CarCreate):
     id: int
     owner_id: int
+    status: CarStatus

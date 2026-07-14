@@ -1,10 +1,8 @@
-from sqlalchemy import Integer, String, DateTime, Enum, ForeignKey
+from sqlalchemy import Integer, DateTime, Enum, ForeignKey
 from sqlalchemy.orm import Mapped, mapped_column, relationship
 from datetime import datetime
 from cars.app.database import Base
 from cars.app.enums import RentalStatus
-from cars.app.models.Car import Car
-from cars.app.models.User import User
 
 
 class Rental(Base):

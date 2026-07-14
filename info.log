@@ -44,3 +44,16 @@ Log: [e8e204e1-17bf-44fe-843d-246a4ee8b934:2026-07-14T12:57:03.224802+0500 - INF
 Log: [20c217dc-0cdc-4666-b47b-5c7d120e2564:2026-07-14T12:57:24.903983+0500 - WARNING - Request to /rentals/ failed 
 Log: [c76219ab-d50b-4b12-bce1-dec986be1001:2026-07-14T12:57:51.408643+0500 - INFO - Successfully accessed /users/token 
 Log: [ff929f1a-3b8e-400c-b094-594386b53e52:2026-07-14T12:57:55.864498+0500 - INFO - Successfully accessed /rentals/ 
+Log: [0c9ba88c-6be7-46bf-be21-edcfe910f1a3:2026-07-14T14:17:05.169001+0500 - INFO - Successfully accessed /docs 
+Log: [a83b9121-080e-4502-b6e1-1d0a0696cd96:2026-07-14T14:17:05.595072+0500 - INFO - Successfully accessed /openapi.json 
+Log: [c4d2d31d-aa70-460d-ab0e-7e15856c96b0:2026-07-14T14:17:10.683269+0500 - INFO - Successfully accessed /cars/ 
+Log: [dd4ee396-ce24-4ec3-a219-942f5715fb98:2026-07-14T14:18:11.897096+0500 - INFO - Successfully accessed /cars/ 
+Log: [cf466f29-0c59-4e89-9718-577308049d65:2026-07-14T14:18:51.283880+0500 - ERROR - Request to /cars/ failed: type object 'Car' has no attribute 'production_year' 
+Log: [b1c9ffe0-48fb-4701-afad-a03d61e719b2:2026-07-14T14:26:44.661996+0500 - INFO - Successfully accessed /cars/ 
+Log: [90be244d-5d30-4824-b071-75793e1c63dd:2026-07-14T14:26:57.234556+0500 - INFO - Successfully accessed /cars/ 
+Log: [50361382-a4da-42d4-b532-0f7f469aaf8a:2026-07-14T14:27:27.075665+0500 - INFO - Successfully accessed /users/token 
+Log: [1249209a-93f7-481f-aaa7-6f07b3db497c:2026-07-14T14:28:14.865112+0500 - INFO - Successfully accessed /cars/ 
+Log: [0edcb4c1-6fd9-4993-9378-0ea4985527d0:2026-07-14T14:28:33.546347+0500 - INFO - Successfully accessed /cars/ 
+Log: [5ad15ef1-40ee-4797-aead-241b52566d15:2026-07-14T14:30:12.282439+0500 - INFO - Successfully accessed /docs 
+Log: [8f5b3073-0d74-4301-8577-0f30ae9d0612:2026-07-14T14:30:12.702166+0500 - INFO - Successfully accessed /openapi.json 
+Log: [fd1c390c-f1ae-437a-b87f-79c7f7281cda:2026-07-14T14:30:17.991832+0500 - INFO - Successfully accessed /cars/ 
