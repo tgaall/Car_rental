@@ -14,9 +14,7 @@ class Rental(Base):
     renter_id: Mapped[int] = mapped_column(
         Integer, ForeignKey("users.id"), nullable=False
     )
-    start_date: Mapped[datetime] = mapped_column(
-        DateTime, nullable=False, default=datetime.now
-    )
+    start_date: Mapped[datetime] = mapped_column(DateTime, nullable=False)
     end_date: Mapped[datetime] = mapped_column(DateTime, nullable=False)
     total_price: Mapped[int] = mapped_column(Integer, nullable=False)
     status: Mapped[RentalStatus] = mapped_column(
