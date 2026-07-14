@@ -1,14 +1,10 @@
 from fastapi import APIRouter, HTTPException, status, Depends
 from sqlalchemy.ext.asyncio import AsyncSession
-from sqlalchemy import select, update
+from sqlalchemy import select
 from sqlalchemy.orm import selectinload
 from cars.app.enums import CarStatus
 from cars.app.models.Rental import Rental as RentalModel
-from cars.app.schemas.RentalSchema import (
-    Rental as RentalSchema,
-    CreateRent,
-    PriceResult,
-)
+from cars.app.schemas.RentalSchema import Rental as RentalSchema, CreateRent
 from cars.app.enums import RentalStatus
 from cars.app.models.User import User as UserModel
 from cars.app.models.Car import Car as CarModel

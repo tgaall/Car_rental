@@ -20,13 +20,3 @@ class CreateRent(BaseModel):
     car_id: int
     start_date: datetime
     end_date: datetime
-
-
-class PriceCalculation(CreateRent):
-    pass
-
-
-class PriceResult(BaseModel):
-    total_price: int
-    daily_rate: int
-    days: int
